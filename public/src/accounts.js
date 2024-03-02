@@ -1,3 +1,9 @@
+// helper function
+function getAuthorForBook(book, authors) {
+  return authors.find(author => author.id === book.authorId);
+}
+
+
 function findAccountById(accounts, id) {
   return accounts.find(account => account.id === id);
 }   
@@ -54,7 +60,7 @@ function getBooksPossessedByAccount(account, books, authors) {
       return currentBorrow.id === account.id && !currentBorrow.returned;
   }).map(book => ({
       ...book,
-      author: authors.find(author => author.id === book.authorId)
+      author: getAuthorForBook(book, authors) // Using the helper function to get author information
   }));
 }
 
@@ -64,3 +70,4 @@ module.exports = {
   getTotalNumberOfBorrows,
   getBooksPossessedByAccount,
 };
+
